@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #e5e5e5;
+}
+
+.item_selected {
+  background-color: whitesmoke !important;
+}
+
+.disable-container {
+  position: relative;
+  pointer-events: none !important;
+}
+
+.view-loader {
+  z-index: 1000;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  background-color: red;
+}
+
+.no-slection {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Montserrat;
+  word-break: break-word;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 22px;
+  color: #000000;
+  padding: 20px;
+  text-align: center;
+  opacity: 0.5;
+}
+
+.no-slection-border-top {
+  border-top: 1px solid #dcdcdc;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.MuiButton-containedPrimary {
+  background-color: #179f57 !important;
+}

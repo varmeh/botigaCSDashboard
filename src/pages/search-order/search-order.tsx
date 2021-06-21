@@ -1,13 +1,13 @@
-import React, { useState, useContext, ChangeEvent } from "react";
-import appContext from "../../contexts/AppContext";
+import React, { useState, ChangeEvent } from "react";
+// import appContext from "../../contexts/AppContext";
 import SearchBar from "../../components/common/search-bar/search-bar";
 import BotigaPageView from "../../components/common/botiga-page-view/botiga-page-view";
 import OrderList from "../../components/order-view/order-list/order-list";
 
-import {
-  getOrdersByOrderNumber,
-  getOrdersByPhoneNumber,
-} from "../../services/order-service";
+// import {
+//   getOrdersByOrderNumber,
+//   getOrdersByPhoneNumber,
+// } from "../../services/order-service";
 
 import boxOpen from "../../assets/images/box-open.svg";
 

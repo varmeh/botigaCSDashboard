@@ -4,4 +4,4 @@ export const DELIVERY_VIEW: string = "/delivery";
 export const NOTIFICATION_VIEW: string = "/notification";
 export const SEARCH_ORDER: string = "/search-order";
 
-export const HOME_VIEW: string = DELIVERY_VIEW;
+export const HOME_VIEW: string = NOTIFICATION_VIEW;

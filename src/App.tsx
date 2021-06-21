@@ -5,12 +5,18 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { SideNav } from "./components/common/side-nav/side-nav";
 import { Error } from "./components/common/error/error";
 import { AppRoutes } from "./components/app-routes";
-import { VERIFY_OTP_VIEW, LOGIN_VIEW } from "./helpers/BotigaRouteFile";
+import {
+  VERIFY_OTP_VIEW,
+  LOGIN_VIEW,
+  HOME_VIEW,
+} from "./helpers/BotigaRouteFile";
 
 import AppContext from "./contexts/AppContext";
 
 import { errorType } from "./types/error";
 import Seller from "./types/seller";
+
+import { fetchProfile } from "./services/auth-service";
 
 import "./App.scss";
 
@@ -34,6 +40,19 @@ class MyApp extends React.Component<RouteComponentProps, AppState> {
     isError: false,
     isMainViewLoading: false,
   };
+
+  async componentDidMount() {
+    try {
+      const { data } = await fetchProfile();
+      if (data.brand) {
+        this._setBrandName(data.brand.name);
+      }
+      this.props.history.replace(HOME_VIEW);
+    } catch (err) {
+      this._setError(true, err);
+      this.props.history.replace(LOGIN_VIEW);
+    }
+  }
 
   _clearContext = (): void =>
     this.setState({

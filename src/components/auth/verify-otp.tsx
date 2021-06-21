@@ -9,7 +9,7 @@ import { Token } from "../../helpers/token";
 import appContext from "../../contexts/AppContext";
 import { HOME_VIEW } from "../../helpers/BotigaRouteFile";
 import botigaMainLogo from "../../assets/icons/botiga-main-logo.svg";
-// import { getOTP, verifyOtpValue } from "../../services/auth-service";
+import { getOTP, signWithOtp } from "../../services/auth-service";
 
 import "./auth.scss";
 
@@ -30,16 +30,15 @@ export const VerifyOtp = withRouter(
     const [otp, setOtp] = useState<string>("");
     const [sessionId, setSessionId] = useState("");
     const [timeRemaining, setTimeRemaining] = useState(-1);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     let timerId: ReturnType<typeof setInterval>;
 
     useEffect(() => {
       getOtp();
       return () => clearInterval(timerId);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    function tick() {
+    function tick(): void {
       setTimeRemaining((t) => {
         if (t === 1) {
           clearInterval(timerId);
@@ -49,48 +48,50 @@ export const VerifyOtp = withRouter(
       });
     }
 
-    function getOtp() {
-      //   sendOtp();
-      //   setTimeRemaining(30);
-      //   timerId = setInterval(tick, 1000);
+    function getOtp(): void {
+      sendOtp();
+      setTimeRemaining(30);
+      timerId = setInterval(tick, 1000);
     }
 
-    function sendOtp() {
-      // getOTP(phone)
-      //   .then((res) => {
-      //     setSessionId(res.data["sessionId"]);
-      //   })
-      //   .catch((err) => {
-      //     setError(true, err);
-      //   });
+    function sendOtp(): void {
+      getOTP(phone)
+        .then((res) => {
+          setSessionId(res.data["sessionId"]);
+        })
+        .catch((err) => {
+          setError(true, err);
+        });
     }
 
     async function verifyEnterdOTP() {
-      // const invalidOtpInput = otp === "" || otp.length !== 6;
-      // if (invalidOtpInput) {
-      //   setError(true, "Please enter 6 digits OTP sent to your mobile");
-      //   return;
-      // }
-      // try {
-      //   setIsLoading(true);
-      //   const response = await verifyOtpValue(phone, sessionId, otp);
-      //   if (response.data["message"] === "createSeller") {
-      //     setError(true, "Seller doesn't exists");
-      //   } else {
-      //     const {
-      //       headers: { authorization },
-      //       data,
-      //     } = response;
-      //     const token = new Token();
-      //     await token.setAuthenticationToken(authorization);
-      //     setBrandName(data.brandName);
-      //     goToHomeView();
-      //   }
-      // } catch (err) {
-      //   setError(true, err);
-      // } finally {
-      //   setIsLoading(false);
-      // }
+      const invalidOtpInput = otp === "" || otp.length !== 6;
+      if (invalidOtpInput) {
+        setError(true, "Please enter 6 digits OTP sent to your mobile");
+        return;
+      }
+      try {
+        setIsLoading(true);
+        const response = await signWithOtp(phone, sessionId, otp);
+        if (response.data["message"] === "createSeller") {
+          setError(true, "Seller doesn't exists");
+        } else {
+          const {
+            headers: { authorization },
+            data,
+          } = response;
+          const token = new Token();
+          if (authorization) {
+            await token.setAuthenticationToken(authorization);
+            setBrandName(data.brandName);
+            goToHomeView();
+          }
+        }
+      } catch (err) {
+        setError(true, err);
+      } finally {
+        setIsLoading(false);
+      }
     }
 
     function goToHomeView(): void {

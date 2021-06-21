@@ -21,10 +21,10 @@ function ApartmentItem({
 }: ApartmentItemProps): JSX.Element {
   const { apartmentName, _id } = apartment;
 
-  function toggleApartment() {
+  function toggleApartment(): void {
     toggleSelectedApartment(_id);
   }
-  const isChecked = selectedApartements.includes(_id);
+  const isChecked: boolean = selectedApartements.includes(_id);
 
   return (
     <div className="apartment-list-item">

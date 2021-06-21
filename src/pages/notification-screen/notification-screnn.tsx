@@ -1,5 +1,6 @@
 import React, { useState, useContext, ChangeEvent, useEffect } from "react";
 import appContext from "../../contexts/AppContext";
+
 import SearchBar from "../../components/common/search-bar/search-bar";
 import BotigaPageView from "../../components/common/botiga-page-view/botiga-page-view";
 import SellerList from "../../components/notification/seller-list/seller-list";
@@ -24,7 +25,7 @@ export function NotificationScreen(): JSX.Element {
   const [searchText, setSearchText] = useState<string>("");
   const [selectedSeller, setSelectedSeller] = useState<string>("");
 
-  async function fetchApprovedSeller() {
+  async function fetchApprovedSeller(): Promise<void> {
     try {
       showMainViewLoader();
       const response: APIResponse<Seller[]> = await getAppprovedSellers();

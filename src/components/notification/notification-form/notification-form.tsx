@@ -1,10 +1,13 @@
+import { useState, useEffect } from "react";
 import { Formik } from "formik";
+
 import Button from "@material-ui/core/Button";
 import SendIcon from "@material-ui/icons/Send";
 import CloseIcon from "@material-ui/icons/Close";
+
+import Image from "../../common/image/image";
 import TextField from "../../common/botiga-text-field/botiga-text-filed";
 import { notificationFormValidator } from "../../../helpers/validators";
-import Image from "../../common/image/image";
 import Notification from "../../../types/notification";
 
 import {
@@ -13,8 +16,6 @@ import {
 } from "../../../services/notification-service";
 
 import "./notification-form.scss";
-import { useState } from "react";
-import { useEffect } from "react";
 
 type notificationFormProps = {
   notification: Notification;
@@ -29,14 +30,11 @@ export default function NotificationForm({
   selectedSeller,
   phoneNumber,
 }: notificationFormProps): JSX.Element {
-  const [banner, setBanner] = useState<string>(
-    "https://s3.ap-south-1.amazonaws.com/products.image.dev/5fb64a26a252ad3410655352_oZUlOC.png"
-  );
-
+  const [notificationImage, setNotificationImage] = useState<string>("");
   const { title, content, imageUrl } = notification;
 
   useEffect(() => {
-    // setBanner(imageUrl);
+    setNotificationImage(imageUrl);
   }, [imageUrl]);
 
   const initialValue = {
@@ -44,13 +42,13 @@ export default function NotificationForm({
     content,
   };
 
-  async function deleteBanner() {}
+  async function deleteNotificationImage(): Promise<void> {}
 
-  function onError() {
-    setBanner("");
+  function onError(): void {
+    setNotificationImage("");
   }
 
-  const isApartmentSelectionEmpty = selectedApartements.length === 0;
+  const isApartmentSelectionEmpty: boolean = selectedApartements.length === 0;
 
   return (
     <Formik
@@ -66,7 +64,7 @@ export default function NotificationForm({
               apartmentId,
               title,
               content,
-              banner,
+              notificationImage,
               selectedSeller
             )
           );
@@ -79,7 +77,7 @@ export default function NotificationForm({
             phoneNumber,
             title,
             content,
-            banner
+            notificationImage
           );
         } catch (err) {}
       }}
@@ -113,17 +111,17 @@ export default function NotificationForm({
                 />
               </div>
               <div className="notification-detail-form-row">
-                {banner ? (
-                  <div className="notification-banner-preview-container">
+                {notificationImage ? (
+                  <div className="notification-image-preview-container">
                     <Image
-                      src={banner}
-                      alt={`banner ${title}`}
-                      className="notification-banner-preview-img"
+                      src={notificationImage}
+                      alt={`NotificationImage ${title}`}
+                      className="notification-image-preview-img"
                       onError={onError}
                     />
                     <CloseIcon
-                      className="notification-banner-preview-close"
-                      onClick={deleteBanner}
+                      className="notification-image-preview-close"
+                      onClick={deleteNotificationImage}
                     />
                   </div>
                 ) : null}

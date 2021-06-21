@@ -1,4 +1,3 @@
-import React from "react";
 import Seller from "../../../types/seller";
 
 import "./seller-list.scss";
@@ -8,7 +7,7 @@ type sellerListProps = {
   selectedSeller: string;
   setSelectedSeller: (id: string) => void;
 };
-type sellerProps = {
+type sellerItemProps = {
   seller: Seller;
   selectedSeller: string;
   setSelectedSeller: (id: string) => void;
@@ -26,11 +25,11 @@ function SellerItem({
   seller,
   selectedSeller,
   setSelectedSeller,
-}: sellerProps): JSX.Element {
-  let sellerItemClass = "seller-item";
+}: sellerItemProps): JSX.Element {
+  let sellerItemClass: string = "seller-item";
   const { brand, id } = seller;
 
-  function selectSeller() {
+  function selectSeller(): void {
     setSelectedSeller(id);
   }
 

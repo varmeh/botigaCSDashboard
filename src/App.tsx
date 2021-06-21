@@ -1,11 +1,14 @@
 import React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import AppContext from "./contexts/AppContext";
+
 import { SideNav } from "./components/common/side-nav/side-nav";
 import { Error } from "./components/common/error/error";
 import { AppRoutes } from "./components/app-routes";
 import { VERIFY_OTP_VIEW, LOGIN_VIEW } from "./helpers/BotigaRouteFile";
+
+import AppContext from "./contexts/AppContext";
+
 import { errorType } from "./types/error";
 import Seller from "./types/seller";
 

@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import OtpInput from "react-otp-input";
+
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import botigaMainLogo from "../../assets/icons/botiga-main-logo.svg";
+
 import { Token } from "../../helpers/token";
 import appContext from "../../contexts/AppContext";
 import { HOME_VIEW } from "../../helpers/BotigaRouteFile";
+import botigaMainLogo from "../../assets/icons/botiga-main-logo.svg";
 // import { getOTP, verifyOtpValue } from "../../services/auth-service";
 
 import "./auth.scss";

@@ -1,12 +1,14 @@
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Formik } from "formik";
-import TextField from "../common/botiga-text-field/botiga-text-filed";
+
 import Button from "@material-ui/core/Button";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Phone from "@material-ui/icons/Phone";
-import botigaMainLogo from "../../assets/icons/botiga-main-logo.svg";
+
+import TextField from "../common/botiga-text-field/botiga-text-filed";
 import { loginPhone } from "../../helpers/validators";
 import { VERIFY_OTP_VIEW } from "../../helpers/BotigaRouteFile";
+import botigaMainLogo from "../../assets/icons/botiga-main-logo.svg";
 
 import "./auth.scss";
 

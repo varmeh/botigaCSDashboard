@@ -12,17 +12,17 @@
       display: flex;
       margin-bottom: 26px;
 
-      .notification-banner-preview-container {
+      .notification-image-preview-container {
         display: inline;
         position: relative;
-        width: 470px; //try 320px
+        width: 320px;
         height: 165px;
-        .notification-banner-preview-img {
-          width: 470px; //try 320px
+        .notification-image-preview-img {
+          width: 320px;
           height: 165px;
           border-radius: 8px;
         }
-        .notification-banner-preview-close {
+        .notification-image-preview-close {
           position: absolute;
           right: 3px;
           top: 3px;

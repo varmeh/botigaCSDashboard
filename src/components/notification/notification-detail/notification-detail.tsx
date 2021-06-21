@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Button from "@material-ui/core/Button";
-import SendIcon from "@material-ui/icons/Send";
+import { useState, useEffect } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
+
 import NotificationForm from "../notification-form/notification-form";
 import ApartmentList from "../apartment-list/apartment-list";
-
 import { APIResponse } from "../../../types/api-response";
 import Notification from "../../../types/notification";
 import Apartment from "../../../types/apartment";
@@ -14,7 +12,7 @@ import { getNotificationDeatilForSeller } from "../../../services/notification-s
 
 import "./notification-detail.scss";
 
-type NotificationStruct = {
+type notificationType = {
   notification: Notification;
   apartments: Apartment[];
 } | null;
@@ -40,24 +38,26 @@ export default function NotificationDetail({
 }: notificationDeatislProps): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [notificationDetails, setNotificationDetails] =
-    useState<NotificationStruct>(null);
+    useState<notificationType>(null);
   const [selectedApartements, setSelectedApartments] = useState<string[]>([]);
 
-  async function fetchNotificationDetails(phone: string) {
+  async function fetchNotificationDetails(phone: string): Promise<void> {
     try {
-      setIsLoading(true);
-      const response: APIResponse<NotificationStruct> =
-        await getNotificationDeatilForSeller(phone);
-      const data: NotificationStruct = response.data;
-      if (data) {
-        const apartments = data.apartments;
-        if (apartments.length > 0) {
-          const allApartments = apartments.map(
-            (apartment: Apartment) => apartment._id
-          );
-          setSelectedApartments(allApartments);
+      if (phone !== "") {
+        setIsLoading(true);
+        const response: APIResponse<notificationType> =
+          await getNotificationDeatilForSeller(phone);
+        const data: notificationType = response.data;
+        if (data) {
+          const apartments: Apartment[] = data.apartments;
+          if (apartments.length > 0) {
+            const allApartments: string[] = apartments.map(
+              (apartment: Apartment) => apartment._id
+            );
+            setSelectedApartments(allApartments);
+          }
+          setNotificationDetails(data);
         }
-        setNotificationDetails(data);
       }
     } catch (err) {
       setError(true, err);
@@ -70,10 +70,10 @@ export default function NotificationDetail({
     fetchNotificationDetails(phoneNumber);
   }, [phoneNumber]);
 
-  function toggleSelectedApartment(id: string) {
-    let apartments = [];
+  function toggleSelectedApartment(id: string): void {
+    let apartments: string[] = [];
     if (selectedApartements.includes(id)) {
-      apartments = selectedApartements.filter((_aptId) => _aptId !== id);
+      apartments = selectedApartements.filter((_id) => _id !== id);
     } else {
       apartments = [...selectedApartements, id];
     }

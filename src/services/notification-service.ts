@@ -1,5 +1,6 @@
 import axios from "../helpers/axios";
 import Seller from "../types/seller";
+
 import { APIResponse } from "../types/api-response";
 import Notification from "../types/notification";
 import Apartment from "../types/apartment";

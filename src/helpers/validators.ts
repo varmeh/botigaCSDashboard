@@ -8,3 +8,8 @@ export const loginPhone = Yup.object({
     .matches(phoneRegExp, "Phone number is not valid")
     .required("requires 10 digit mobile number"),
 });
+
+export const notificationFormValidator = Yup.object({
+  title: Yup.string().required("Required"),
+  content: Yup.string().required("Required"),
+});

@@ -11,7 +11,7 @@ export default interface Apartment {
   deliveryFee: number;
   deliveryMessage: string;
   deliveryMinOrder: number;
-  deliverySlot: string;
+  deliverySlot?: string;
   live: boolean;
   _id: string;
 }

@@ -7,6 +7,7 @@ import { Error } from "./components/common/error/error";
 import { AppRoutes } from "./components/app-routes";
 import { VERIFY_OTP_VIEW, LOGIN_VIEW } from "./helpers/BotigaRouteFile";
 import { errorType } from "./types/error";
+import Seller from "./types/seller";
 
 import "./App.scss";
 
@@ -15,6 +16,7 @@ const SIDE_NAVIGATION_HIDDEN_FOR_ROUTES: string[] = [
   VERIFY_OTP_VIEW,
 ];
 type AppState = {
+  approvedSellers: Seller[];
   brandName: string;
   error: errorType;
   isError: boolean;
@@ -23,6 +25,7 @@ type AppState = {
 
 class MyApp extends React.Component<RouteComponentProps, AppState> {
   state: AppState = {
+    approvedSellers: [],
     brandName: "",
     error: null,
     isError: false,
@@ -31,6 +34,7 @@ class MyApp extends React.Component<RouteComponentProps, AppState> {
 
   _clearContext = (): void =>
     this.setState({
+      approvedSellers: [],
       brandName: "",
       error: null,
       isError: false,
@@ -49,6 +53,9 @@ class MyApp extends React.Component<RouteComponentProps, AppState> {
 
   _hideMainViewLoader = (): void => this.setState({ isMainViewLoading: false });
 
+  _setApprovedSeller = (sellers: Seller[]): void =>
+    this.setState({ approvedSellers: sellers });
+
   render(): JSX.Element {
     const {
       location: { pathname = "" },
@@ -57,13 +64,16 @@ class MyApp extends React.Component<RouteComponentProps, AppState> {
     const includeSideBar: boolean =
       !SIDE_NAVIGATION_HIDDEN_FOR_ROUTES.includes(pathname);
 
-    const { isError, error, isMainViewLoading, brandName } = this.state;
+    const { isError, error, isMainViewLoading, brandName, approvedSellers } =
+      this.state;
 
     return (
       <AppContext.Provider
         value={{
+          approvedSellers: approvedSellers,
           brandName: brandName,
           setBrandName: this._setBrandName,
+          setApprovedSeller: this._setApprovedSeller,
           showMainViewLoader: this._showMainViewLoader,
           hideMainViewLoader: this._hideMainViewLoader,
           setError: this._setError,

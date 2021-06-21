@@ -15,6 +15,7 @@ body {
 .disable-container {
   position: relative;
   pointer-events: none !important;
+  width: 100%;
 }
 
 .view-loader {
@@ -22,7 +23,6 @@ body {
   position: absolute;
   top: 50%;
   right: 50%;
-  background-color: red;
 }
 
 .no-slection {
@@ -48,6 +48,14 @@ body {
 
 .uppercase {
   text-transform: uppercase;
+}
+
+.MuiCheckbox-colorPrimary.Mui-checked {
+  color: #179f57 !important;
+}
+
+.MuiCircularProgress-root {
+  color: #179f57 !important;
 }
 
 .MuiButton-containedPrimary {

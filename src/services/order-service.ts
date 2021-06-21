@@ -1,15 +1,15 @@
-import axios, { APIResponse } from "../helpers/axios";
-import { AxiosResponse } from "axios";
+import axios from "../helpers/axios";
+import { APIResponse } from "../types/api-response";
 
 async function getOrdersByOrderNumber(
   orderNumber: string
-): Promise<AxiosResponse<APIResponse>> {
+): Promise<APIResponse> {
   return axios().get(`api/admin/orders/order/${orderNumber}`);
 }
 
 async function getOrdersByPhoneNumber(
   phoneNumber: string
-): Promise<AxiosResponse<APIResponse>> {
+): Promise<APIResponse> {
   return axios().get(`/api/admin/orders/phone/${phoneNumber}`);
 }
 

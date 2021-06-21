@@ -61,3 +61,20 @@ body {
 .MuiButton-containedPrimary {
   background-color: #179f57 !important;
 }
+
+.no-slection {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  font-family: Montserrat;
+  word-break: break-word;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 22px;
+  color: #000000;
+  padding: 20px;
+  text-align: center;
+  opacity: 0.5;
+}

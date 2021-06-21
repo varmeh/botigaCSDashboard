@@ -114,6 +114,16 @@ export default function NotificationDetail({
       </div>
     );
   }
+  if (!selectedSeller) {
+    return (
+      <div className="notification-detail-style">
+        <NotificationDetailHeader />
+        <div className="notification-detail-body">
+          <div className="no-slection">No Seller selected</div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="notification-detail-style">
       <NotificationDetailHeader />

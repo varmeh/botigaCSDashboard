@@ -62,6 +62,15 @@ export function NotificationScreen(): JSX.Element {
     return "";
   }
 
+  function getFilteredApprovedSellers(): Seller[] {
+    if (searchText.trim() === "") {
+      return approvedSellers;
+    }
+    return approvedSellers.filter((_seller) =>
+      _seller.brand.toLowerCase().includes(searchText.toLowerCase())
+    );
+  }
+
   useEffect(() => {
     if (approvedSellers.length === 0) {
       fetchApprovedSeller();
@@ -82,7 +91,7 @@ export function NotificationScreen(): JSX.Element {
         <SellerList
           selectedSeller={selectedSeller}
           setSelectedSeller={setSelectedSeller}
-          approvedSellers={approvedSellers}
+          approvedSellers={getFilteredApprovedSellers()}
         />
         <NotificationDetail
           setError={setError}

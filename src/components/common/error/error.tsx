@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
+import MuiAlert from "@material-ui/lab/Alert";
 
 import appContext from "../../../contexts/AppContext";
 import { errorType } from "../../../types/error";
+
+import "./error.scss";
 
 type errorProps = {
   err: errorType;
@@ -23,6 +24,10 @@ const getErrorMessage = (err: errorType): string => {
   return defaultErrorMessage;
 };
 
+function Alert(props: any): JSX.Element {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 export const Error = ({ err }: errorProps): JSX.Element => {
   const { setError } = useContext(appContext);
 
@@ -37,27 +42,19 @@ export const Error = ({ err }: errorProps): JSX.Element => {
   };
 
   return (
-    <Snackbar
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "center",
-      }}
-      open
-      autoHideDuration={3000}
-      onClose={handleClose}
-      message={getErrorMessage(err)}
-      action={
-        <React.Fragment>
-          <IconButton
-            size="small"
-            aria-label="close"
-            color="inherit"
-            onClick={handleClose}
-          >
-            <CloseIcon fontSize="small" />
-          </IconButton>
-        </React.Fragment>
-      }
-    />
+    <div className="error">
+      <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        key={"bottom right"}
+        open
+        autoHideDuration={3000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity={"error"}>
+          <div className="error-heading">ERROR!</div>
+          <div className="error-secondary">{getErrorMessage(err)}</div>
+        </Alert>
+      </Snackbar>
+    </div>
   );
 };

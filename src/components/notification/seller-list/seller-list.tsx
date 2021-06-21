@@ -55,6 +55,7 @@ export default function SellerList({
       <div className="seller-list-body">
         {approvedSellers.map((seller: Seller) => (
           <SellerItem
+            key={seller.id}
             selectedSeller={selectedSeller}
             setSelectedSeller={setSelectedSeller}
             seller={seller}

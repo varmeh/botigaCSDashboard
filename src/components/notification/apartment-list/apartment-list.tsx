@@ -50,6 +50,7 @@ export default function ApartmentList({
     <div className="apartment-list">
       {apartments.map((_apartment: Apartment) => (
         <ApartmentItem
+          key={_apartment._id}
           selectedApartements={selectedApartements}
           toggleSelectedApartment={toggleSelectedApartment}
           apartment={_apartment}

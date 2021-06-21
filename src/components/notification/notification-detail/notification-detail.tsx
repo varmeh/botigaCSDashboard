@@ -21,6 +21,8 @@ type notificationDeatislProps = {
   phoneNumber: string;
   setError: (value: boolean, err?: errorType) => void;
   selectedSeller: string;
+  showMainViewLoader: () => void;
+  hideMainViewLoader: () => void;
 };
 
 function NotificationDetailHeader(): JSX.Element {
@@ -35,6 +37,8 @@ export default function NotificationDetail({
   phoneNumber,
   setError,
   selectedSeller,
+  showMainViewLoader,
+  hideMainViewLoader,
 }: notificationDeatislProps): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [notificationDetails, setNotificationDetails] =
@@ -104,6 +108,9 @@ export default function NotificationDetail({
             notification={notificationDetails.notification}
             selectedSeller={selectedSeller}
             phoneNumber={phoneNumber}
+            showMainViewLoader={showMainViewLoader}
+            hideMainViewLoader={hideMainViewLoader}
+            setError={setError}
           />
           <ApartmentList
             selectedApartements={selectedApartements}

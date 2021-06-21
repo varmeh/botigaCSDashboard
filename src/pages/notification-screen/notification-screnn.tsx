@@ -97,6 +97,8 @@ export function NotificationScreen(): JSX.Element {
           setError={setError}
           phoneNumber={getSelectedSelerPhoneNumber()}
           selectedSeller={selectedSeller}
+          showMainViewLoader={showMainViewLoader}
+          hideMainViewLoader={hideMainViewLoader}
         />
       </BotigaPageView>
     </React.Fragment>

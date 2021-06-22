@@ -8,6 +8,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
 import Image from "../../common/image/image";
+import { NotificationImageUpload } from "../notification-image-upload/notification-image-upload";
 import TextField from "../../common/botiga-text-field/botiga-text-filed";
 import { notificationFormValidator } from "../../../helpers/validators";
 import Notification from "../../../types/notification";
@@ -17,6 +18,8 @@ import {
   sendNotification,
   saveNotification,
 } from "../../../services/notification-service";
+
+import { deleteImage } from "../../../services/image-service";
 
 import "./notification-form.scss";
 
@@ -57,7 +60,17 @@ export default function NotificationForm({
     content,
   };
 
-  async function deleteNotificationImage(): Promise<void> {}
+  async function deleteNotificationImage(): Promise<void> {
+    try {
+      showMainViewLoader();
+      await deleteImage(notificationImage);
+      setNotificationImage("");
+    } catch (err) {
+      setError(true, err);
+    } finally {
+      hideMainViewLoader();
+    }
+  }
 
   function onError(): void {
     setNotificationImage("");
@@ -154,7 +167,14 @@ export default function NotificationForm({
                         onClick={deleteNotificationImage}
                       />
                     </div>
-                  ) : null}
+                  ) : (
+                    <NotificationImageUpload
+                      setError={setError}
+                      showMainViewLoader={showMainViewLoader}
+                      hideMainViewLoader={hideMainViewLoader}
+                      onUploadSuccess={setNotificationImage}
+                    />
+                  )}
                 </div>
               </div>
               {!isApartmentSelectionEmpty ? (

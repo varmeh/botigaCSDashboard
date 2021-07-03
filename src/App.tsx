@@ -14,6 +14,7 @@ import {
 import AppContext from "./contexts/AppContext";
 
 import { errorType } from "./types/error";
+import { ApartmentShort } from "./types/apartment";
 import Seller from "./types/seller";
 
 import { fetchProfile } from "./services/auth-service";
@@ -26,6 +27,7 @@ const SIDE_NAVIGATION_HIDDEN_FOR_ROUTES: string[] = [
 ];
 type AppState = {
   approvedSellers: Seller[];
+  apartments: ApartmentShort[];
   brandName: string;
   error: errorType;
   isError: boolean;
@@ -35,6 +37,7 @@ type AppState = {
 class MyApp extends React.Component<RouteComponentProps, AppState> {
   state: AppState = {
     approvedSellers: [],
+    apartments: [],
     brandName: "",
     error: null,
     isError: false,
@@ -78,6 +81,11 @@ class MyApp extends React.Component<RouteComponentProps, AppState> {
   _setApprovedSeller = (sellers: Seller[]): void =>
     this.setState({ approvedSellers: sellers });
 
+  _setApartments = (apartments: ApartmentShort[]): void =>
+    this.setState({
+      apartments: apartments,
+    });
+
   render(): JSX.Element {
     const {
       location: { pathname = "" },
@@ -86,16 +94,24 @@ class MyApp extends React.Component<RouteComponentProps, AppState> {
     const includeSideBar: boolean =
       !SIDE_NAVIGATION_HIDDEN_FOR_ROUTES.includes(pathname);
 
-    const { isError, error, isMainViewLoading, brandName, approvedSellers } =
-      this.state;
+    const {
+      isError,
+      error,
+      isMainViewLoading,
+      brandName,
+      approvedSellers,
+      apartments,
+    } = this.state;
 
     return (
       <AppContext.Provider
         value={{
           approvedSellers: approvedSellers,
+          apartments: apartments,
           brandName: brandName,
           setBrandName: this._setBrandName,
           setApprovedSeller: this._setApprovedSeller,
+          setApartments: this._setApartments,
           showMainViewLoader: this._showMainViewLoader,
           hideMainViewLoader: this._hideMainViewLoader,
           setError: this._setError,

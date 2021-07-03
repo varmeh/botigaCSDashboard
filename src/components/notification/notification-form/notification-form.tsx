@@ -8,7 +8,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
 import Image from "../../common/image/image";
-import { NotificationImageUpload } from "../notification-image-upload/notification-image-upload";
+import { NotificationImageUpload } from "../../common/notification-image-upload/notification-image-upload";
 import TextField from "../../common/botiga-text-field/botiga-text-filed";
 import { notificationFormValidator } from "../../../helpers/validators";
 import Notification from "../../../types/notification";

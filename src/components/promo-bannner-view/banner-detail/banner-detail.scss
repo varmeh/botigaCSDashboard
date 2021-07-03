@@ -1,0 +1,78 @@
+.banner-details-style {
+  width: 480px;
+  height: 827px;
+  position: relative;
+
+  .banner-header-item {
+    padding: 20px 25px 20px 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 66px;
+    border-bottom: 1px solid #dcdcdc;
+
+    .banner-header-name {
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 150%;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #121715;
+    }
+  }
+  .banner-details-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 761px;
+
+    .banner-form {
+      padding: 30px 25px 30px 25px;
+      .banner-details-row {
+        display: flex;
+        margin-bottom: 20px;
+        justify-content: center;
+
+        .banner-image-preview-container {
+          display: inline;
+          position: relative;
+          width: 320px;
+          height: 165px;
+          .banner-image-preview-img {
+            width: 320px;
+            height: 165px;
+            border-radius: 8px;
+          }
+          .banner-image-preview-close {
+            position: absolute;
+            right: 3px;
+            top: 3px;
+            padding: 1px;
+            color: #ffffff;
+            cursor: pointer;
+            background: #000000;
+            opacity: 0.5;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+
+    .banner-detail-form-row-action {
+      border-top: 1px solid #dcdcdc;
+      padding: 15px 22px 15px 22px;
+      display: flex;
+      justify-content: flex-end;
+
+      .MuiButton-text {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 15px;
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@ import Logo from "../../../assets/icons/logo.svg";
 // import Delivery from "../../../assets/icons/delivery.svg";
 import Notification from "../../../assets/icons/notification.svg";
 // import Search from "../../../assets/icons/search.svg";
+import ApartmentIcon from "../../../assets/icons/apartment.svg";
 import LogoutIcon from "../../../assets/icons/logout.svg";
 
 import {
@@ -13,6 +14,7 @@ import {
   // DELIVERY_VIEW,
   NOTIFICATION_VIEW,
   // SEARCH_ORDER,
+  PROMO_BANNERS,
 } from "../../../helpers/BotigaRouteFile";
 
 import { Logout } from "../../../services/auth-service";
@@ -47,6 +49,11 @@ export const SideNav = withRouter(
           to={NOTIFICATION_VIEW}
         />
         {/* <MenuIconItem image={Search} text={"Search"} to={SEARCH_ORDER} /> */}
+        <MenuIconItem
+          image={ApartmentIcon}
+          text={"Apartment"}
+          to={PROMO_BANNERS}
+        />
         <MenuIconItem
           image={LogoutIcon}
           text={"Logout"}

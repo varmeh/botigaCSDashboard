@@ -13,3 +13,8 @@ export const notificationFormValidator = Yup.object({
   title: Yup.string().required("Required"),
   content: Yup.string().required("Required"),
 });
+
+export const addBannerValidator = Yup.object({
+  sellerId: Yup.string().required("Required"),
+  position: Yup.string().required("Required"),
+});

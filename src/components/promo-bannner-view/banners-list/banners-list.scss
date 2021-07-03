@@ -1,0 +1,89 @@
+.banner-list-container {
+  display: flex;
+  position: relative;
+  height: 827px;
+  width: 850px;
+  .banner-list-style {
+    width: 370px;
+    height: 827px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #dcdcdc;
+
+    .banner-header-item {
+      padding: 20px 25px 20px 25px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #dcdcdc;
+      height: 66px;
+
+      .banner-header-name {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 150%;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: #000000;
+      }
+
+      .banner-header-btn.MuiButton-text {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 150%;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: #179f57;
+      }
+    }
+    .banner-list-body {
+      overflow-y: auto;
+
+      .banner-item {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 25px 20px 25px;
+        border-bottom: 1px solid #dcdcdc;
+
+        .banner-image-header {
+          display: flex;
+          justify-content: space-between;
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          color: #121715;
+          margin-bottom: 16px;
+        }
+
+        .banner-image-preview-container {
+          display: inline;
+          position: relative;
+          width: 320px;
+          height: 165px;
+          .banner-image-preview-img {
+            width: 320px;
+            height: 165px;
+            border-radius: 8px;
+          }
+          .banner-image-preview-close {
+            position: absolute;
+            right: 3px;
+            top: 3px;
+            padding: 1px;
+            color: #ffffff;
+            cursor: pointer;
+            background: #000000;
+            opacity: 0.5;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+}

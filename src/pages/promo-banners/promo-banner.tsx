@@ -29,12 +29,17 @@ export function PromoBanners(): JSX.Element {
         .then((res) => {
           const apartments: ApartmentShort[] = res.data;
           setApartments(apartments);
+          const firstApartment: ApartmentShort = apartments[0];
+          setSelectedCommunity(firstApartment._id);
           hideMainViewLoader();
         })
         .catch((err) => {
           hideMainViewLoader();
           setError(true, err);
         });
+    } else {
+      const firstApartment: ApartmentShort = apartments[0];
+      setSelectedCommunity(firstApartment._id);
     }
   }, []);
 

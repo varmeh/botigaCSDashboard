@@ -26,7 +26,6 @@ function Header(): JSX.Element {
 }
 
 type bannerFormProps = {
-  setShowAddForm: (value: boolean) => void;
   sellers: marketingSellers[];
   setError: (value: boolean, err?: errorType) => void;
   showMainViewLoader: () => void;
@@ -35,7 +34,6 @@ type bannerFormProps = {
   updateMarketingBanner: (banners: marketingBanners[]) => void;
 };
 function BannerForm({
-  setShowAddForm,
   sellers,
   setError,
   showMainViewLoader,
@@ -44,20 +42,15 @@ function BannerForm({
   updateMarketingBanner,
 }: bannerFormProps): JSX.Element {
   const [bannerImage, setBannerImage] = useState<string>("");
-
-  function hideAddNewBanner(): void {
-    setShowAddForm(false);
-  }
+  const [initialValue, setInitialvalue] = useState({
+    sellerId: "",
+    position: "1",
+  });
 
   const sellerList = sellers.map((seller) => ({
     key: seller.brandName,
     value: seller._id,
   }));
-
-  const initialValue = {
-    sellerId: "",
-    position: "",
-  };
 
   async function deleteNotificationImage(): Promise<void> {
     try {
@@ -80,7 +73,7 @@ function BannerForm({
       enableReinitialize
       validationSchema={addBannerValidator}
       initialValues={initialValue}
-      onSubmit={async (values) => {
+      onSubmit={async (values, { resetForm, setFieldValue }) => {
         try {
           const { sellerId, position } = values;
           showMainViewLoader();
@@ -93,7 +86,15 @@ function BannerForm({
             );
           const markettingBannersData: marketingBanners[] = response.data;
           updateMarketingBanner(markettingBannersData);
-          hideAddNewBanner();
+          //success
+          resetForm({});
+          setInitialvalue({
+            sellerId: "",
+            position: "1",
+          });
+          setBannerImage("");
+          setFieldValue("sellerId", "");
+          setFieldValue("position", "1");
         } catch (err) {
           setError(true, err);
         } finally {
@@ -110,7 +111,7 @@ function BannerForm({
                   id="sellerId"
                   optionsList={sellerList}
                   {...getFieldProps("sellerId")}
-                  onChange={(_, v) => setFieldValue("sellerId", v.value)}
+                  onChange={(_, v) => v && setFieldValue("sellerId", v.value)}
                   label="Seller Name"
                   variant="outlined"
                   error={touched.sellerId && errors.sellerId}
@@ -153,10 +154,6 @@ function BannerForm({
               </div>
             </div>
             <div className="banner-detail-form-row-action">
-              <Button disableElevation onClick={hideAddNewBanner}>
-                cancel
-              </Button>
-              <div className="spacer" />
               <Button
                 type="submit"
                 variant="contained"
@@ -174,8 +171,6 @@ function BannerForm({
 }
 
 type bannerDetailsProps = {
-  setShowAddForm: (value: boolean) => void;
-  showAddForm: boolean;
   sellers: marketingSellers[];
   setError: (value: boolean, err?: errorType) => void;
   showMainViewLoader: () => void;
@@ -185,8 +180,6 @@ type bannerDetailsProps = {
 };
 
 export default function BannerDetails({
-  setShowAddForm,
-  showAddForm,
   sellers,
   setError,
   showMainViewLoader,
@@ -197,17 +190,14 @@ export default function BannerDetails({
   return (
     <div className="banner-details-style">
       <Header />
-      {showAddForm ? (
-        <BannerForm
-          setError={setError}
-          sellers={sellers}
-          setShowAddForm={setShowAddForm}
-          showMainViewLoader={showMainViewLoader}
-          hideMainViewLoader={hideMainViewLoader}
-          selectedCommunity={selectedCommunity}
-          updateMarketingBanner={updateMarketingBanner}
-        />
-      ) : null}
+      <BannerForm
+        setError={setError}
+        sellers={sellers}
+        showMainViewLoader={showMainViewLoader}
+        hideMainViewLoader={hideMainViewLoader}
+        selectedCommunity={selectedCommunity}
+        updateMarketingBanner={updateMarketingBanner}
+      />
     </div>
   );
 }

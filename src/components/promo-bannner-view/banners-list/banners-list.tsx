@@ -22,26 +22,10 @@ import { errorType } from "../../../types/error";
 
 import "./banners-list.scss";
 
-type bannerHeaderProps = {
-  setShowAddForm: (value: boolean) => void;
-  sellers: marketingSellers[];
-};
-function BannerHeader({
-  setShowAddForm,
-  sellers,
-}: bannerHeaderProps): JSX.Element {
-  function addNewBanner(): void {
-    setShowAddForm(true);
-  }
-
+function BannerHeader(): JSX.Element {
   return (
     <div className="banner-header-item">
       <div className="banner-header-name">Banner</div>
-      {sellers.length > 0 ? (
-        <Button className="banner-header-btn" onClick={addNewBanner}>
-          + NEW
-        </Button>
-      ) : null}
     </div>
   );
 }
@@ -69,7 +53,7 @@ function BannerItem({
     <div className="banner-item">
       <div className="banner-image-header">
         <div>{sellerBrandName}</div>
-        <div>{position}</div>
+        <div>{position + 1}</div>
       </div>
       <div className="banner-image-preview-container">
         <Image
@@ -100,8 +84,6 @@ export default function BannersList({
 }: BannerListProps): JSX.Element {
   const [apartmentDetails, setApartmentDetails] =
     useState<ApartmentWithBannerDetails | null>(null);
-
-  const [showAddForm, setShowAddForm] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -122,7 +104,6 @@ export default function BannersList({
 
   useEffect(() => {
     if (selectedCommunity) {
-      setShowAddForm(false);
       setApartmentDetails(null);
     }
   }, [selectedCommunity]);
@@ -190,13 +171,11 @@ export default function BannersList({
         </div>
       ) : null}
       <div className="banner-list-style">
-        <BannerHeader
-          sellers={apartmentDetails ? apartmentDetails.sellers : []}
-          setShowAddForm={setShowAddForm}
-        />
+        <BannerHeader />
         <div className="banner-list-body">
-          {apartmentDetails
-            ? apartmentDetails.marketingBanners.map((banner, index) => (
+          {apartmentDetails ? (
+            apartmentDetails.marketingBanners.length > 0 ? (
+              apartmentDetails.marketingBanners.map((banner, index) => (
                 <BannerItem
                   key={banner.id}
                   banner={banner}
@@ -205,19 +184,24 @@ export default function BannersList({
                   deleteBanner={deleteBanner}
                 />
               ))
-            : null}
+            ) : (
+              <div className="no-slection">No Banners</div>
+            )
+          ) : (
+            <div className="no-slection">No Banners</div>
+          )}
         </div>
       </div>
-      <BannerDetails
-        setError={setError}
-        showAddForm={showAddForm}
-        setShowAddForm={setShowAddForm}
-        sellers={apartmentDetails ? apartmentDetails.sellers : []}
-        showMainViewLoader={showMainViewLoader}
-        hideMainViewLoader={hideMainViewLoader}
-        selectedCommunity={selectedCommunity}
-        updateMarketingBanner={updateMarketingBanner}
-      />
+      {apartmentDetails ? (
+        <BannerDetails
+          setError={setError}
+          sellers={apartmentDetails ? apartmentDetails.sellers : []}
+          showMainViewLoader={showMainViewLoader}
+          hideMainViewLoader={hideMainViewLoader}
+          selectedCommunity={selectedCommunity}
+          updateMarketingBanner={updateMarketingBanner}
+        />
+      ) : null}
     </div>
   );
 }

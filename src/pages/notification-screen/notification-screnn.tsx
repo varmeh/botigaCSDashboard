@@ -32,6 +32,8 @@ export function NotificationScreen(): JSX.Element {
       const data: Seller[] = response.data;
       if (data && data.length > 0) {
         setApprovedSeller(data);
+        const firstSeller: Seller = data[0];
+        setSelectedSeller(firstSeller.id);
       }
     } catch (err) {
       setError(true, err);
@@ -74,6 +76,9 @@ export function NotificationScreen(): JSX.Element {
   useEffect(() => {
     if (approvedSellers.length === 0) {
       fetchApprovedSeller();
+    } else {
+      const firstSeller: Seller = approvedSellers[0];
+      setSelectedSeller(firstSeller.id);
     }
   }, []);
 
